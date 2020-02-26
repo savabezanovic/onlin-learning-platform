@@ -15,7 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("/", "PagesController@index");
 Route::get('/admin', 'AdminsController@index');
-Route::get('/educators', 'EducatorsController@index');
 Route::get('/alleducators', 'AdminsController@showEducators');
-Route::get('/editeducators', 'AdminsController@editEducator');
+Route::get('/editeducator/{user_id}', 'AdminsController@editEducator');
+
+Route::put('/updateeducator/{user_id}', 'AdminsController@updateEducator');
+Route::delete('/deleteeducator/{user_id}', 'AdminsController@deleteEducator');
+
+Route::get("/createuser", "AdminsController@createUser");
+Route::post("/storeuser", "AdminsController@storeUser");
+
+Route::get("/createprofile", "AdminsController@createProfile");
+
+Route::post("/storeprofile/{user_id}", "AdminsController@storeProfile");

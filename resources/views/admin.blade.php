@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test OLP</title>
-</head>
-<body>
+@include("partials.header")
+@include("partials.navigation")
     <h1>Admin Page</h1>
-    <a href="/allEducators">All Educators</a>
-</body>
-</html>
+    <a href="/alleducators">All Educators</a>
+    <a href="/createuser">Create User</a>
+@include("partials.footer")
