@@ -2,8 +2,6 @@
 @include("partials.navigation")
 <h1>Create New Profile</h1>
 
-<?php echo $user_id . "PICKO JAVI SE"; ?>
-
 <form action="{{action('AdminsController@storeProfile', $user_id) }}" method="POST">
     @csrf
     

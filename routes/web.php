@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get("/", "PagesController@index");
+Route::get("/showalleducators", "PagesController@showAllEducators");
+
 Route::get('/admin', 'AdminsController@index');
-Route::get('/alleducators', 'AdminsController@showEducators');
+Route::get('/showalleducatorsadmin', 'AdminsController@showEducatorsAdmin');
 Route::get('/editeducator/{user_id}', 'AdminsController@editEducator');
 
 Route::put('/updateeducator/{user_id}', 'AdminsController@updateEducator');

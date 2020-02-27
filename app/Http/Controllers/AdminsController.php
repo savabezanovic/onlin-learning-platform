@@ -88,7 +88,7 @@ class AdminsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function showEducators()
+    public function showEducatorsAdmin()
     {
         $educators = DB::table('role_users')
         ->Join('users', 'users.id', '=', 'role_users.user_id')
@@ -97,7 +97,7 @@ class AdminsController extends Controller
         ->where("roles.name", "=", "educator")
         ->get();
 
-        return view('all_educators')->with('educators', $educators);
+        return view('show_all_educators_admin')->with('educators', $educators);
     }
 
     /**
