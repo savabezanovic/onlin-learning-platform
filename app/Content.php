@@ -8,7 +8,6 @@ class Content extends Model
 {
     protected $fillable = [
         'desc', 'course_id'
-
     ];
 
     public function course() {

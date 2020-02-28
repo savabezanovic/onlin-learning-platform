@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Course;
+use App\User;
+use App\Role;
 
 class PagesController extends Controller
 {
@@ -13,37 +16,43 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function homePage()
     {
         
-        $courses = DB::table('course_users')
-        ->select(DB::raw('count(course_users.user_id) as qty, courses.name, courses.video_url'))
-        ->join("courses", "courses.id", "=", "course_users.course_id")
-        ->groupBy('courses.name')
-        ->groupBy('courses.video_url')
-        ->orderBy('qty', 'DESC')
-        ->take(3)
-        ->get();
+        // $courses = DB::table('course_user')
+        // ->select(DB::raw('count(course_user.user_id) as qty, courses.name, courses.video_url'))
+        // ->join("courses", "courses.id", "=", "course_user.course_id")
+        // ->groupBy('courses.name')
+        // ->groupBy('courses.video_url')
+        // ->orderBy('qty', 'DESC')
+        // ->take(3)
+        // ->get();
 
-        return view("home")->with("courses", $courses);
+        // $courses = Course::get();
+       
+        // return view("home")->with("courses", $courses);
+
+        $user = User::find(1);
+
+        return view("home")->with("user", $user);
     }
 
     public function showAllEducators() 
     {
 
-        $recentJoins = DB::table('role_users')
-        ->Join('users', 'users.id', '=', 'role_users.user_id')
-        ->Join('profiles', "role_users.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_users.role_id")
+        $recentJoins = DB::table('role_user')
+        ->Join('users', 'users.id', '=', 'role_user.user_id')
+        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
+        ->Join("roles", "roles.id", "=", "role_user.role_id")
         ->where("roles.name", "=", "educator")
         ->orderBy("users.created_at")
         ->take(3)
         ->get();
 
-        $searchEducators = DB::table('role_users')
-        ->Join('users', 'users.id', '=', 'role_users.user_id')
-        ->Join('profiles', "role_users.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_users.role_id")
+        $searchEducators = DB::table('role_user')
+        ->Join('users', 'users.id', '=', 'role_user.user_id')
+        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
+        ->Join("roles", "roles.id", "=", "role_user.role_id")
         ->where("roles.name", "=", "educator")
         ->get();
 

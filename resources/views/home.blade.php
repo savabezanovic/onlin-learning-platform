@@ -26,12 +26,16 @@
 
 <h2>Popularni kursevi</h2>
 
-<?php foreach($courses as $course): ?>
+<?php 
 
-<video src="<?php $course->video_url?>" controls></video>
+    echo $user->first_name;
 
-<?php echo $course->name ?>
+    foreach($user->roles as $role) {
 
-<?php endforeach; ?> 
+        echo $role->name;
+
+    }
+
+?>
 
 @include("partials.footer")

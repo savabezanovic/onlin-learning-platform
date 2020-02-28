@@ -8,6 +8,6 @@
     <video src="<?php echo $recentCreation->video_url ?>" > </video>
     <p> <?php echo $recentCreation->name ?> </p>
 
-    
+    <?php endforeach; ?>
 
 @include("partials.footer")

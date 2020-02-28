@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Role;
+use App\User;
+use Illuminate\Support\Facades\DB;
 
 class RoleUserTableSeeder extends Seeder
 {
@@ -11,6 +14,18 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\RoleUser::class, 10)->create();
+
+        $timestamp = date("Y-m-d H:i:s");
+
+        for ($i = 0; $i < 10; $i++) {
+
+            DB::table('role_user')->insert(
+                [
+                    'role_id' => Role::select('id')->orderByRaw("RAND()")->first()->id,
+                    'user_id' => User::select('id')->orderByRaw("RAND()")->first()->id,
+                    "created_at" => $timestamp
+                ]
+            );
+        }
     }
 }

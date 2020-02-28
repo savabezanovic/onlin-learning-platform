@@ -90,10 +90,10 @@ class AdminsController extends Controller
 
     public function showEducatorsAdmin()
     {
-        $educators = DB::table('role_users')
-        ->Join('users', 'users.id', '=', 'role_users.user_id')
-        ->Join('profiles', "role_users.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_users.role_id")
+        $educators = DB::table('role_user')
+        ->Join('users', 'users.id', '=', 'role_user.user_id')
+        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
+        ->Join("roles", "roles.id", "=", "role_user.role_id")
         ->where("roles.name", "=", "educator")
         ->get();
 
@@ -111,12 +111,12 @@ class AdminsController extends Controller
 
         
 
-        $educator = DB::table('role_users')
-        ->Join('users', 'users.id', '=', 'role_users.user_id')
-        ->Join('profiles', "role_users.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_users.role_id")
+        $educator = DB::table('role_user')
+        ->Join('users', 'users.id', '=', 'role_user.user_id')
+        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
+        ->Join("roles", "roles.id", "=", "role_user.role_id")
         ->where("roles.name", "=", "educator")
-        ->where("role_users.user_id", "=", $id)
+        ->where("role_user.user_id", "=", $id)
         ->get();
 
         $educator["roles"] = DB::table("roles")->get();
@@ -158,12 +158,12 @@ class AdminsController extends Controller
                         "bio" => request()->bio
                     ]
                 );     
-        $roles = DB::table('role_users')
-            ->Join("roles", "roles.id", "=", "role_users.role_id")
+        $roles = DB::table('role_user')
+            ->Join("roles", "roles.id", "=", "role_user.role_id")
             ->where('user_id', "=", $id)
             ->update(
                     [
-                        'role_users.role_id' => request()->user_role
+                        'role_user.role_id' => request()->user_role
                     ]
                  ); 
 

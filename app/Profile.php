@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     protected $fillable = [
-        'age', 'education', 'image_url', 'title', 'bio', 'user_id', 'linkedin_url'
+        'age', 'education', 'image_url', 'title', 'bio', 'linkedin_url'
 
     ];
+
+    protected $guarded = ["user_id"];
 
     public function user() {
 

@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    protected $fillable = [
+    protected $guarded = [
         'name'
     ];
 
     public function users() {
 
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class)->as('role_user')->withTimestamps();
 
     }
 

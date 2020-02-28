@@ -38,21 +38,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles() {
+    public function profile() {
 
-        return $this->hasMany(Role::class);
+        return $this->hasOne(Profile::class);
 
     }
 
-    public function profile() {
+    public function roles() {
 
-        return $this->belongsTo(Profile::class);
+        return $this->belongsToMany(Role::class)->as('role_user')->withTimestamps();
 
     }
 
     public function courses() {
 
-        return $this->hasMany(Course::class);
+        return $this->belongsToMany(Course::class)->as('course_user')->withTimestamps();
 
     }
 

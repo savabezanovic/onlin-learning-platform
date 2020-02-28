@@ -11,8 +11,9 @@
 |
 */
 
-Route::get("/", "PagesController@index");
+Route::get("/", "PagesController@homePage");
 Route::get("/showalleducators", "PagesController@showAllEducators");
+Route::get("/showallcourses", "PagesController@showAllCourses");
 
 Route::get('/admin', 'AdminsController@index');
 Route::get('/showalleducatorsadmin', 'AdminsController@showEducatorsAdmin');
