@@ -3,21 +3,16 @@
 
     <h1>All Educators</h1>
 
-    <?php foreach($educators as $educator): ?>
-
-        <?php 
+    @foreach($educators as $educator)
         
-        echo "User ID: " . $educator->{"user_id"} . " First Name: " .  
-        
-        $educator->{"first_name"} . " Last Name: " . $educator->{"last_name"} . 
-        
-        " Email: " . $educator->{"email"}
-
-        ?>   
-        
+        <p> User ID: {{ $educator->id }} </p> 
+        <p> First Name: {{ $educator->first_name }} </p>  
+        <p> Last Name: {{ $educator->last_name }} </p> 
+        <p> Email: {{ $educator->email }} </p> 
+    
         <a href='/editeducator/{{$educator->user_id}}'>Edit</a>
        
-        <form action="{{action('AdminsController@deleteEducator', $educator->user_id)}}" method="POST">
+        <form action="{{action('AdminsController@deleteEducator', $educator->id)}}" method="POST">
         
         {{method_field("DELETE")}}
 
@@ -29,6 +24,6 @@
         
         <br>
 
-    <?php endforeach; ?>
+    @endforeach
 
 @include("partials.footer")

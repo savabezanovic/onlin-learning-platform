@@ -12,19 +12,21 @@
 */
 
 Route::get("/", "PagesController@homePage");
-Route::get("/showalleducators", "PagesController@showAllEducators");
-Route::get("/showallcourses", "PagesController@showAllCourses");
+Route::get("/educators", "PagesController@showAllEducators");
+Route::get("/courses", "PagesController@showAllCourses");
 
 Route::get('/admin', 'AdminsController@index');
-Route::get('/showalleducatorsadmin', 'AdminsController@showEducatorsAdmin');
-Route::get('/editeducator/{user_id}', 'AdminsController@editEducator');
+Route::get('/admin/educators', 'AdminsController@showEducatorsAdmin');
 
-Route::put('/updateeducator/{user_id}', 'AdminsController@updateEducator');
-Route::delete('/deleteeducator/{user_id}', 'AdminsController@deleteEducator');
+Route::get('/admin/edit/{user_id}', 'AdminsController@editEducator');
+Route::put('admin/update/{user_id}', 'AdminsController@updateEducator');
+Route::delete('admin/delete/{user_id}', 'AdminsController@deleteEducator');
 
-Route::get("/createuser", "AdminsController@createUser");
-Route::post("/storeuser", "AdminsController@storeUser");
+Route::get("admin/create", "AdminsController@createUser");
+Route::post("admin/save", "AdminsController@storeUser");
 
-Route::get("/createprofile", "AdminsController@createProfile");
+Route::get("admin/profile", "AdminsController@createProfile");
+Route::post("admin/saveProfile/{user_id}", "AdminsController@saveProfile");
+Auth::routes();
 
-Route::post("/storeprofile/{user_id}", "AdminsController@storeProfile");
+Route::get('/home', 'HomeController@index')->name('home');

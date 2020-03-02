@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\RoleUser;
 use App\User;
 use App\Profile;
+use App\Role;
 use DB;
 
 class AdminsController extends Controller
@@ -27,8 +28,8 @@ class AdminsController extends Controller
      */
     public function createUser()
     {
-        $userRoles = DB::table("roles")->get();
-        return view("create_user")->with("userRoles", $userRoles);
+        $userRoles = Role::all();
+        return view("create_user_admin")->with("userRoles", $userRoles);
     }
 
     public function createProfile($id) 
@@ -53,10 +54,10 @@ class AdminsController extends Controller
         $user->password = $request->input("password");
         $user->save();
 
-        $user_id = DB::table('users')
-        ->select("id")
-        ->where("users.email", "=", $request->input("email"))
-        ->get();
+        // $user_id = DB::table('users')
+        // ->select("id")
+        // ->where("users.email", "=", $request->input("email"))
+        // ->get();
 
         // return redirect("/createprofile")->with(['user_id' => $user_id[0]->id]);
 
@@ -90,11 +91,9 @@ class AdminsController extends Controller
 
     public function showEducatorsAdmin()
     {
-        $educators = DB::table('role_user')
-        ->Join('users', 'users.id', '=', 'role_user.user_id')
-        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_user.role_id")
-        ->where("roles.name", "=", "educator")
+        $educators = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['educator']);
+        })
         ->get();
 
         return view('show_all_educators_admin')->with('educators', $educators);

@@ -3,7 +3,7 @@
 @include("partials.navigation")
 
 <h1>Edukacija za nove generacije!</h1>
-<img src= "<?php echo asset('storage/homePageHero.png'); ?>" alt="Hero Image" width = "500" lenght = "auto">
+<img src= "{{asset('storage/homePageHero.png')}}" alt="Hero Image" width = "500" lenght = "auto">
 
 <h2>Zelis da postavis svoj kurs?</h2>
 <a href="#"><img src="https://via.placeholder.com/150"></a>
@@ -24,18 +24,12 @@
 <img src="https://via.placeholder.com/150">
 <p>Sami odredite tempo i vreme pohadjanja kursa</p>
 
-<h2>Popularni kursevi</h2>
+<h2>Popularni kursevi</h2> 
 
-<?php 
-
-    echo $user->first_name;
-
-    foreach($user->roles as $role) {
-
-        echo $role->name;
-
-    }
-
-?>
+@foreach ($courses as $course)
+    <img src='https://via.placeholder.com/150'></img> 
+    <br>
+    <p>{{$course->name}}</p>
+@endforeach
 
 @include("partials.footer")

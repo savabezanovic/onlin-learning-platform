@@ -5,22 +5,28 @@
 
     <h2>Recently Joined</h2>
 
-    <?php foreach($recentJoins as $recentJoin): ?>
+    @foreach($recentEducators as $educator)
 
         <img src="https://via.placeholder.com/150">
-        <p><?php echo $recentJoin->first_name . " " . $recentJoin->last_name ?></p>
+        <p>{{$educator->first_name}} {{$educator->last_name}}</p>
 
-    <?php endforeach; ?>
+    @endforeach
 
-    <span for="name">Search for an educator:</span>
-	<input type="text" name="name"></input>
+    <form action="{{action('PagesController@showAllEducators')}}" method="GET">
+
+        <span for="name">Search for an educator:</span>
+	    <input type="text" name="name"></input>
+
+        <input type="submit" value="Search">
+
+    </form>
     <br>
     
-    <?php foreach($searchEducators as $searchEducator): ?>
+    @foreach($allEducators as $educator)
 
         <img src="https://via.placeholder.com/150">
-        <p><?php echo $searchEducator->first_name . " " . $recentJoin->last_name ?></p>
+        <p>{{$educator->first_name}} {{$educator->last_name}}</p>
     
-    <?php endforeach; ?>
+    @endforeach
 
 @include("partials.footer")

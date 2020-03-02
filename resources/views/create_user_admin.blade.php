@@ -22,9 +22,6 @@
      
         <br>
 
-        <!-- <span for="re_password">Repeat Password:</span>
-		<input type="password" re_password="re_password" required></input> -->
-
         <span for="email">Email:</span>
 		<input type="email" name="email" required></input>
      
@@ -33,11 +30,11 @@
 		<span for="user_role">User Role Select Field:</span>
 		<select name="user_role">
 
-        <?php foreach($userRoles as $userRole): ?>
+        @foreach($userRoles as $userRole)
 
-        <option value= <?php echo $userRole->{"id"} ?> > <?php echo $userRole->{"name"} ?> </option>
+        <option value= {{ $userRole->id }} > {{ $userRole->name }} </option>
 
-        <?php endforeach; ?>	
+        @endforeach	
 
         </select>
 

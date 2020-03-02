@@ -3,11 +3,28 @@
 
     <h1>Recentlly added</h1>
 
-    <?php foreach($recentCreations as $recentCreation): ?>
+    @foreach($recentCourses as $course)
 
-    <video src="<?php echo $recentCreation->video_url ?>" > </video>
-    <p> <?php echo $recentCreation->name ?> </p>
+    <img src="https://via.placeholder.com/150"> </img>
+    <p>{{$course->name}}</p>
 
-    <?php endforeach; ?>
+    @endforeach
+
+    <ul>
+    @foreach($categories as $category)
+    
+    <li>
+        <a href="/courseCategory{{$category->id}}">{{$category->name}}</a>
+    </li>
+
+    @endforeach
+    </ul>
+
+    @foreach($courses as $course)
+
+    <img src="https://via.placeholder.com/150">
+    <p>{{$course->name}}</p>
+
+    @endforeach
 
 @include("partials.footer")

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use DB;
 use App\Course;
 use App\User;
 use App\Role;
+use App\Category;
 
 class PagesController extends Controller
 {
@@ -19,56 +21,54 @@ class PagesController extends Controller
     public function homePage()
     {
         
-        // $courses = DB::table('course_user')
-        // ->select(DB::raw('count(course_user.user_id) as qty, courses.name, courses.video_url'))
-        // ->join("courses", "courses.id", "=", "course_user.course_id")
-        // ->groupBy('courses.name')
-        // ->groupBy('courses.video_url')
-        // ->orderBy('qty', 'DESC')
-        // ->take(3)
-        // ->get();
+        $courses = Course::with('users')
+            ->withCount('users')
+            ->latest('users_count')
+            ->take(3)
+            ->get();
 
-        // $courses = Course::get();
-       
-        // return view("home")->with("courses", $courses);
-
-        $user = User::find(1);
-
-        return view("home")->with("user", $user);
+        return view("home")->with("courses", $courses);
     }
 
-    public function showAllEducators() 
+    public function showAllEducators(Request $request)
     {
+    
+        $name = $request->get('name');
 
-        $recentJoins = DB::table('role_user')
-        ->Join('users', 'users.id', '=', 'role_user.user_id')
-        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_user.role_id")
-        ->where("roles.name", "=", "educator")
-        ->orderBy("users.created_at")
+        $recentEducators = User::whereHas('roles', function (Builder $query)  {
+            $query->where('roles.name', '=', 'educator');
+        })
+        ->latest("created_at")
         ->take(3)
         ->get();
 
-        $searchEducators = DB::table('role_user')
-        ->Join('users', 'users.id', '=', 'role_user.user_id')
-        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_user.role_id")
-        ->where("roles.name", "=", "educator")
-        ->get();
+        $allEducators = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['educator']);
+        })
+            ->where( function ($query) use ($name){
+            $query->where(function ($wheres) use ($name) {
+            $wheres->where('first_name', 'like', $name . '%')
+                   ->orWhere('last_name', 'like', $name . '%');
+            });
+        })
+            ->get();
 
-        return view('show_all_educators')->with('recentJoins', $recentJoins)->with("searchEducators", $searchEducators);
+        return view('show_all_educators')->with('recentEducators', $recentEducators)->with("allEducators", $allEducators);
 
     }
 
-    public function showAllCourses()
+    public function showAllCourses($name = "" )
     {
 
-        $recentCreatons = DB::table('courses')
-        ->orderBy("created_at")
+        $recentCourses = Course::latest("created_at")
         ->take(3)
         ->get();
 
-        return view("show_all_courses")->with("recentCreatons", $recentCreatons);
+        $categories = Category::all();
+
+        $courses = Course::all();
+
+        return view("show_all_courses")->with("recentCourses", $recentCourses)->with("categories", $categories)->with("courses", $courses);
 
     }
 

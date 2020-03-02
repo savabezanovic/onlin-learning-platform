@@ -23,6 +23,7 @@ class RoleUserTableSeeder extends Seeder
                 [
                     'role_id' => Role::select('id')->orderByRaw("RAND()")->first()->id,
                     'user_id' => User::select('id')->orderByRaw("RAND()")->first()->id,
+                    // User::inRandomOrder()->limit(1)->get();
                     "created_at" => $timestamp
                 ]
             );
