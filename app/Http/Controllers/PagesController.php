@@ -47,8 +47,8 @@ class PagesController extends Controller
         })
             ->where( function ($query) use ($name){
             $query->where(function ($wheres) use ($name) {
-            $wheres->where('first_name', 'like', $name . '%')
-                   ->orWhere('last_name', 'like', $name . '%');
+            $wheres->where('first_name', 'like', "%" . $name . '%')
+                   ->orWhere('last_name', 'like', "%" . $name . '%');
             });
         })
             ->get();

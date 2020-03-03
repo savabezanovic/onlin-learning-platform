@@ -1,7 +1,7 @@
  
 <nav>
     <ul>
-        <li><a href="/"><img src="<?php echo asset('storage/logo.png')?>"></a></li>
+        <li><a href="/"><img src="{{asset('storage/logo.gif')}}"></a></li>
         <li><a href="/">Home</a></li>
         <li><a href="/admin">Admin</a></li>
         <li><a href="/educators">Educators</a></li>

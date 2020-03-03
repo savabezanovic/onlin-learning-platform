@@ -10,7 +10,7 @@
         <p> Last Name: {{ $educator->last_name }} </p> 
         <p> Email: {{ $educator->email }} </p> 
     
-        <a href='/editeducator/{{$educator->user_id}}'>Edit</a>
+        <a href='/admin/edit/educator/{{$educator->id}}'>Edit</a>
        
         <form action="{{action('AdminsController@deleteEducator', $educator->id)}}" method="POST">
         

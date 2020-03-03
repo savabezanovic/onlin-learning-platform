@@ -61,7 +61,7 @@ class AdminsController extends Controller
 
         // return redirect("/createprofile")->with(['user_id' => $user_id[0]->id]);
 
-        return $this->createProfile($user_id[0]->id);
+        return $this->createProfile($user_id->id);
 
     }
 
@@ -108,19 +108,10 @@ class AdminsController extends Controller
     public function editEducator($id)
     {
 
-        
+        $educator = User::find($id);
+        $roles = Role::all();
 
-        $educator = DB::table('role_user')
-        ->Join('users', 'users.id', '=', 'role_user.user_id')
-        ->Join('profiles', "role_user.user_id", "=", "profiles.user_id")
-        ->Join("roles", "roles.id", "=", "role_user.role_id")
-        ->where("roles.name", "=", "educator")
-        ->where("role_user.user_id", "=", $id)
-        ->get();
-
-        $educator["roles"] = DB::table("roles")->get();
-
-        return view("edit_educator")->with("educator", $educator);
+        return view("edit_educator_admin")->with("educator", $educator)->with("roles", $roles);
     }
 
     /**
@@ -130,43 +121,24 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateEducator($id)
+    public function updateEducator(Request $request, $id)
     {
-        
-        $user = DB::table('users')
-              ->where('id', "=", $id)
-              ->update(
-                    [
-                      'first_name' => request()->first_name,
-                      "last_name" => request()->last_name,
-                      "password" => request()->password,
-                      "email" => request()->email
-                    
-                    ]
-                );
 
-        $profile = DB::table('profiles')
-            ->where('user_id', "=", $id)
-            ->update(
-                    [
-                        'age' => request()->age,
-                        "linkedin_url" => request()->linkedin_url,
-                        "education" => request()->education,
-                        "image_url" => request()->image_url,
-                        "title" => request()->title,
-                        "bio" => request()->bio
-                    ]
-                );     
-        $roles = DB::table('role_user')
-            ->Join("roles", "roles.id", "=", "role_user.role_id")
-            ->where('user_id', "=", $id)
-            ->update(
-                    [
-                        'role_user.role_id' => request()->user_role
-                    ]
-                 ); 
+        $user = User::find($id);
+        $user->first_name = $request->input("first_name");
+        $user->last_name = $request->input("last_name");
+        $user->email = $request->input("email");
+        $user->password = $request->input("password");
+        $user->profile->age = $request->input("age");
+        $user->profile->linkedin_url = $request->input("linkedin_url");
+        $user->profile->education = $request->input("education");
+        $user->profile->image_url = $request->input("image_url");
+        $user->profile->title = $request->input("title");
+        $user->profile->bio = $request->input("bio");
+        $user->roles()->sync([$request->user_role]);
+        $user->save();
 
-        return redirect("/alleducators");               
+        return redirect("/admin/educators");               
 
     }
 
@@ -178,8 +150,11 @@ class AdminsController extends Controller
      */
     public function deleteEducator($id)
     {   
-        DB::table('users')->where('id', '=', $id)->delete();
+        $user = User::find($id);
+        
+        $user->delete();
 
-        return redirect("alleducators");
+        return redirect("/admin/educators");
+
     }
 }
