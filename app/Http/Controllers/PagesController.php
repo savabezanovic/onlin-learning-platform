@@ -30,7 +30,7 @@ class PagesController extends Controller
         return view("home")->with("courses", $courses);
     }
 
-    public function showAllEducators(Request $request)
+    public function showEducators(Request $request)
     {
     
         $name = $request->get('name');
@@ -53,11 +53,11 @@ class PagesController extends Controller
         })
             ->get();
 
-        return view('show_all_educators')->with('recentEducators', $recentEducators)->with("allEducators", $allEducators);
+        return view('educators')->with('recentEducators', $recentEducators)->with("allEducators", $allEducators);
 
     }
 
-    public function showAllCourses($name = "" )
+    public function showCourses($name = "" )
     {
 
         $recentCourses = Course::latest("created_at")
@@ -68,7 +68,7 @@ class PagesController extends Controller
 
         $courses = Course::all();
 
-        return view("show_all_courses")->with("recentCourses", $recentCourses)->with("categories", $categories)->with("courses", $courses);
+        return view("courses")->with("recentCourses", $recentCourses)->with("categories", $categories)->with("courses", $courses);
 
     }
 

@@ -16,9 +16,9 @@ class AdminsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function dashboard()
     {
-        return view("admin");
+        return view("admin.dashboard");
     }
 
     /**
@@ -29,14 +29,7 @@ class AdminsController extends Controller
     public function createUser()
     {
         $userRoles = Role::all();
-        return view("create_user_admin")->with("userRoles", $userRoles);
-    }
-
-    public function createProfile($id) 
-    {
-        $user_id = $id;
-
-        return view("create_profile")->with("user_id", $user_id);
+        return view("admin.create_user")->with("userRoles", $userRoles);
     }
 
     /**
@@ -54,31 +47,14 @@ class AdminsController extends Controller
         $user->password = $request->input("password");
         $user->save();
 
-        // $user_id = DB::table('users')
-        // ->select("id")
-        // ->where("users.email", "=", $request->input("email"))
-        // ->get();
-
-        // return redirect("/createprofile")->with(['user_id' => $user_id[0]->id]);
-
-        return $this->createProfile($user_id->id);
-
-    }
-
-    public function storeProfile(Request $request, $id) 
-    {
+        $user->roles()->sync([$request->input("user_role")]);
+        $user->save();
 
         $profile = new Profile;
-        $profile->age = $request->input("age");
-        $profile->linkedin_url = $request->input("linkedin_url");
-        $profile->education = $request->input("education");
-        $profile->image_url = $request->input("image_url");
-        $profile->title = $request->input("title");
-        $profile->bio = $request->input("bio");
-        $profile->user_id = $id;
+        $profile->user_id = $user->id;
         $profile->save();
-
-        return redirect("/createuser");
+      
+        return redirect("/admin/dashboard");
 
     }
 
@@ -89,14 +65,24 @@ class AdminsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function showEducatorsAdmin()
+    public function showEducators()
     {
         $educators = User::whereHas('roles', function ($q) {
             $q->whereIn('name', ['educator']);
         })
         ->get();
 
-        return view('show_all_educators_admin')->with('educators', $educators);
+        return view('admin.educators')->with('educators', $educators);
+    }
+
+    public function showStudents()
+    {
+        $students = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['student']);
+        })
+        ->get();
+
+        return view('admin.students')->with('students', $students);
     }
 
     /**
@@ -105,13 +91,13 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editEducator($id)
+    public function edit($id)
     {
 
-        $educator = User::find($id);
+        $user = User::find($id);
         $roles = Role::all();
 
-        return view("edit_educator_admin")->with("educator", $educator)->with("roles", $roles);
+        return view("admin.edit")->with("user", $user)->with("roles", $roles);
     }
 
     /**
@@ -121,7 +107,7 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateEducator(Request $request, $id)
+    public function update(Request $request, $id)
     {
 
         $user = User::find($id);
@@ -135,10 +121,11 @@ class AdminsController extends Controller
         $user->profile->image_url = $request->input("image_url");
         $user->profile->title = $request->input("title");
         $user->profile->bio = $request->input("bio");
-        $user->roles()->sync([$request->user_role]);
+        $user->roles()->sync([$request->input("user_role")]);
         $user->save();
+        $user->profile->save();
 
-        return redirect("/admin/educators");               
+        return redirect("/admin/dashboard");               
 
     }
 
@@ -148,13 +135,13 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deleteEducator($id)
+    public function delete($id)
     {   
         $user = User::find($id);
         
         $user->delete();
 
-        return redirect("/admin/educators");
+        return redirect("/admin/dashboard");
 
     }
 }

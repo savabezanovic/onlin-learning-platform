@@ -1,35 +1,46 @@
-@include("partials.header")
+@extends('layouts.app')
 
-@include("partials.navigation")
+@section('content')
 
-<h1>Edukacija za nove generacije!</h1>
-<img src= "{{asset('storage/homePageHero.png')}}" alt="Hero Image" width = "500" lenght = "auto">
+    @include("components.navigation")
 
-<h2>Zelis da postavis svoj kurs?</h2>
-<a href="#"><img src="https://via.placeholder.com/150"></a>
-<a href="#">Prijavi se</a>
+        <h1>Edukacija za nove generacije!</h1>
 
-<h2>Zelis da pohadjas neki kurs?</h2>
-<a href="#"><img src="https://via.placeholder.com/150"></a>
-<a href="#">Prijavi se</a>
+        <iframe width="1000" height="500" src="https://www.youtube.com/embed/G1IbRujko-A?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h2>Kljucne Vrednosti Platforme</h2>
+        <br>
 
-<img src="https://via.placeholder.com/150">
-<p>Ucite iz konfora svog doma</p>
+        <img src= "{{asset('storage/homePageHero.png')}}" alt="Hero Image" width = "500" lenght = "auto">
 
-<img src="https://via.placeholder.com/150">
-<p>Nadjite najpovoljniji i najkvalitetniji kurs</p>
+        <h2>Zelis da postavis svoj kurs?</h2>
+        <a href="#"><img src="https://via.placeholder.com/150"></a>
+        <a href="#">Prijavi se</a>
 
-<img src="https://via.placeholder.com/150">
-<p>Sami odredite tempo i vreme pohadjanja kursa</p>
+        <h2>Zelis da pohadjas neki kurs?</h2>
+        <a href="#"><img src="https://via.placeholder.com/150"></a>
+        <a href="#">Prijavi se</a>
 
-<h2>Popularni kursevi</h2> 
+        <h2>Kljucne Vrednosti Platforme</h2>
 
-@foreach ($courses as $course)
-    <img src='https://via.placeholder.com/150'></img> 
-    <br>
-    <p>{{$course->name}}</p>
-@endforeach
+        <img src="https://via.placeholder.com/150">
+        <p>Ucite iz konfora svog doma</p>
 
-@include("partials.footer")
+        <img src="https://via.placeholder.com/150">
+        <p>Nadjite najpovoljniji i najkvalitetniji kurs</p>
+
+        <img src="https://via.placeholder.com/150">
+        <p>Sami odredite tempo i vreme pohadjanja kursa</p>
+
+        <h2>Popularni kursevi</h2> 
+
+    @foreach ($courses as $course)
+
+        <img src='https://via.placeholder.com/150'></img> 
+        <br>
+        <p>{{$course->name}}</p>
+
+    @endforeach
+
+    @include("components.footer")
+
+@endsection
