@@ -26,10 +26,7 @@ Route::delete('/admin/delete/{user_id}', 'AdminsController@delete');
 Route::get("/admin/create", "AdminsController@createUser");
 Route::post("admin/save", "AdminsController@storeUser");
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post("/register/user", "Auth\RegisterController@create");
 
 Auth::routes();
 
