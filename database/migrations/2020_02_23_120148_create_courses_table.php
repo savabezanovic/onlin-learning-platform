@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('desc');
-            $table->bigInteger('cat_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
             // $table->foreign('cat_id')->references('id')->on("category");
             $table->string('goals');
             $table->string('video_url');

@@ -57,7 +57,7 @@ class PagesController extends Controller
 
     }
 
-    public function showCourses($name = "" )
+    public function showCourses()
     {
 
         $recentCourses = Course::latest("created_at")
@@ -70,6 +70,40 @@ class PagesController extends Controller
 
         return view("courses")->with("recentCourses", $recentCourses)->with("categories", $categories)->with("courses", $courses);
 
+    }
+
+    public function showCategoryCourses($category_name)
+    {
+        
+        $category = Category::where("name", "=", $category_name)->first();
+    
+        $recentCourses = Course::where("category_id", "=", $category->id)
+        ->latest("created_at")
+        ->take(3)
+        ->get();
+
+        $categories = Category::all();
+
+        $courses = Course::where("category_id", "=", $category->id)->get();
+
+        return view("courses")->with("recentCourses", $recentCourses)->with("categories", $categories)->with("courses", $courses);
+
+    }
+
+    public function showCourse($course_name)
+    {
+
+        $course = Course::where("name", "=", $course_name)->first();
+
+        $owner_id = $course->users[0]->course_user->where("user_type", "=", "owner")->first();
+
+        $owner = User::find($owner_id->user_id);
+
+        $goals = explode(",", $course->goals);
+
+        return view("course")->with("course", $course)
+        ->with("owner", $owner)
+        ->with("goals", $goals);
     }
 
 }

@@ -23,7 +23,7 @@ class CourseUserTableSeeder extends Seeder
                 [
                     'course_id' => Course::select('id')->orderByRaw("RAND()")->first()->id,
                     'user_id' => User::select('id')->orderByRaw("RAND()")->first()->id,
-                    // User::inRandomOrder()->limit(1)->get();
+                    "user_type" => "watcher",
                     "created_at" => $timestamp
                 ]
             );

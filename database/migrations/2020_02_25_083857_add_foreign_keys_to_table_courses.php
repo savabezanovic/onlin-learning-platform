@@ -14,7 +14,7 @@ class AddForeignKeysToTableCourses extends Migration
     public function up()
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->foreign('cat_id')->references('id')->on("categories")->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on("categories")->onDelete('cascade');
         });
     }
 

@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            "role_user" => ["required", "intiger"]
+            "user_role" => ["required", "integer"]
         ]);
     }
 
@@ -83,7 +83,7 @@ class RegisterController extends Controller
         $user->first_name = $request->input("first_name");
         $user->last_name = $request->input("last_name");
         $user->email = $request->input("email");
-        $user->password = $request->input("password");
+        $user->password = Hash::make($request->input("password"));
         $user->save();
 
         $user->roles()->sync([$request->input("user_role")]);
@@ -93,7 +93,7 @@ class RegisterController extends Controller
         $profile->user_id = $user->id;
         $profile->save();
       
-        return redirect("/admin/dashboard");
+        return redirect("/");
         
     }
 }

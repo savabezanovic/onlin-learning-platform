@@ -14,6 +14,8 @@
 Route::get("/", "PagesController@homePage");
 Route::get("/educators", "PagesController@showEducators");
 Route::get("/courses", "PagesController@showCourses");
+Route::get("/courses/category/{category_name}", "PagesController@showCategoryCourses");
+Route::get("/course/{course_name}", "PagesController@showCourse");
 
 Route::get('/admin/dashboard', 'AdminsController@dashboard');
 Route::get('/admin/educators', 'AdminsController@showEducators');
@@ -29,5 +31,3 @@ Route::post("admin/save", "AdminsController@storeUser");
 Route::post("/register/user", "Auth\RegisterController@create");
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

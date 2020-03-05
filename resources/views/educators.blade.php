@@ -14,7 +14,7 @@
         @endforeach
 
         <form action="{{action('PagesController@showEducators')}}" method="GET">
-
+        @csrf
             <span for="name">Search for an educator:</span>
             <input type="text" name="name"></input>
 

@@ -10,15 +10,31 @@
 
         <br>
 
-        <img src= "{{asset('storage/homePageHero.png')}}" alt="Hero Image" width = "500" lenght = "auto">
+        <img src= "{{asset('storage/homePageHero.png')}}" alt="Hero Image" width = "500" lenght = "500">
 
         <h2>Zelis da postavis svoj kurs?</h2>
-        <a href="#"><img src="https://via.placeholder.com/150"></a>
-        <a href="#">Prijavi se</a>
 
-        <h2>Zelis da pohadjas neki kurs?</h2>
-        <a href="#"><img src="https://via.placeholder.com/150"></a>
-        <a href="#">Prijavi se</a>
+        <a href="/register">
+
+        <img src="https://via.placeholder.com/150">
+
+        <br>
+
+        <p>Prijavi se</p>
+
+        </a>
+
+        <h2>Zelis da pohadjas neki kurs?</h2> 
+
+         <a href="/register">
+
+            <img src="https://via.placeholder.com/150">
+
+            <br>
+
+            <p>Prijavi se</p>
+        
+        </a>
 
         <h2>Kljucne Vrednosti Platforme</h2>
 
@@ -44,3 +60,4 @@
     @include("components.footer")
 
 @endsection
+

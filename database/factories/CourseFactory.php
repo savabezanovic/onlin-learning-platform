@@ -14,7 +14,7 @@ $factory->define(Course::class, function (Faker $faker) {
         "name" => $faker->name,
         "desc" => $faker->realText($maxNbChars = 100, $indexSize = 2),
         "goals" => $faker->realText($maxNbChars = 10),
-        "cat_id" => $faker->randomElement($category),
+        "category_id" => $faker->randomElement($category),
         "video_url" => $faker->url
     ];
 });

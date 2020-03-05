@@ -13,20 +13,21 @@
 
         @endforeach
 
-        <ul>
-        @foreach($categories as $category)
-        
-        <li>
-            <a href="/courseCategory{{$category->id}}">{{$category->name}}</a>
-        </li>
+        <a href="/courses">All Courses</a>
 
-        @endforeach
-        </ul>
+        @foreach($categories as $category)
+
+            <a href="/courses/category/{{$category->name}}">{{$category->name}}</a>
+
+        @endforeach	
+
+        <br>
 
         @foreach($courses as $course)
-
-        <img src="https://via.placeholder.com/150">
-        <p>{{$course->name}}</p>
+        <a href="/course/{{$course->name}}">
+            <img src="https://via.placeholder.com/150">
+            <p>{{$course->name}}</p>
+        </a>
 
         @endforeach
 
