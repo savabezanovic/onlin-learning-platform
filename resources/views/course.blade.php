@@ -6,15 +6,15 @@
 
         <h1>{{$course->name}}</h1>
 
-        <iframe width="1000" height="500" src="{{$course->video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="500" height="200" src="{{$course->video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
         <p>{{$course->desc}}</p>
 
-        <img src="{{$owner->profile->image_url}}" height="250" width="250" alt="Owner Image">
+        <img src="{{$course->owner->profile->image_url}}" height="250" width="250" alt="Owner Image">
 
-        <p>{{$owner->first_name}} {{$owner->last_name}}</p>
+        <p>{{$course->owner->first_name}} {{$course->owner->last_name}}</p>
 
-        <p>{{$owner->profile->bio}}</p>
+        <p>{{$course->owner->profile->bio}}</p>
 
         <h2>Table of Content:</h2>
 
@@ -41,6 +41,13 @@
             @endforeach
 
         </ol>
+
+        @foreach($recommended as $course)
+
+            <h2>{{$course->name}}</h2>
+            <img src="{{$course->image_url}}">
+
+        @endforeach
 
     @include("components.footer")
     

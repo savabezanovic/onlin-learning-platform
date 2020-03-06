@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'name', 'desc', 'goals', 'cat_id', 'video_url'
+        'name', 'description', 'goals', 'category_id', 'video_url', "user_id"
     ];
 
     public function category() {
@@ -22,9 +22,15 @@ class Course extends Model
 
     }
 
-    public function users() {
+    public function students() {
 
         return $this->belongsToMany(User::class)->as('course_user')->withTimestamps();
+
+    }
+
+    public function owner() {
+
+        return $this->belongsTo(User::class, 'user_id');
 
     }
 

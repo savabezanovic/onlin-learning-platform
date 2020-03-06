@@ -16,11 +16,12 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->text('desc');
+            $table->text('description');
             $table->bigInteger('category_id')->unsigned();
             // $table->foreign('cat_id')->references('id')->on("category");
             $table->string('goals');
             $table->string('video_url');
+            $table->bigInteger("user_id")->unsigned();
             $table->timestamps();
         });
     }

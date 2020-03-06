@@ -6,10 +6,10 @@
 
         <h2>Recently Joined</h2>
 
-        @foreach($recentEducators as $educator)
-
-            <img src="https://via.placeholder.com/150">
-            <p>{{$educator->first_name}} {{$educator->last_name}}</p>
+        @foreach($recentEducators as $recentEducator)
+            
+            <img src="{{$recentEducator->profile->image_url}}" width=150 height=100>
+            <p>{{$recentEducator->first_name}} {{$recentEducator->last_name}}</p>
 
         @endforeach
 
@@ -25,7 +25,7 @@
         
         @foreach($allEducators as $educator)
 
-            <img src="https://via.placeholder.com/150">
+            <img src="{{$educator->profile->image_url}}" width=150 height=100>
             <p>{{$educator->first_name}} {{$educator->last_name}}</p>
         
         @endforeach

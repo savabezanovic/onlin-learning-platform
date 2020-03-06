@@ -8,8 +8,10 @@
 
         @foreach($recentCourses as $course)
 
-        <img src="https://via.placeholder.com/150"> </img>
-        <p>{{$course->name}}</p>
+        <a href="/course/{{$course->name}}">
+            <img src="{{$course->image_url}}" width=150 height=100></img>
+            <p>{{$course->name}}</p>
+        </a>    
 
         @endforeach
 
@@ -25,7 +27,7 @@
 
         @foreach($courses as $course)
         <a href="/course/{{$course->name}}">
-            <img src="https://via.placeholder.com/150">
+            <img src="{{$course->image_url}}" width=150 height=100>
             <p>{{$course->name}}</p>
         </a>
 

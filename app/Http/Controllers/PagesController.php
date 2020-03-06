@@ -21,9 +21,9 @@ class PagesController extends Controller
     public function homePage()
     {
         
-        $courses = Course::with('users')
-            ->withCount('users')
-            ->latest('users_count')
+        $courses = Course::with('students')
+            ->withCount('students')
+            ->latest('students_count')
             ->take(3)
             ->get();
 
@@ -95,15 +95,11 @@ class PagesController extends Controller
 
         $course = Course::where("name", "=", $course_name)->first();
 
-        $owner_id = $course->users[0]->course_user->where("user_type", "=", "owner")->first();
-
-        $owner = User::find($owner_id->user_id);
-
         $goals = explode(",", $course->goals);
 
         return view("course")->with("course", $course)
-        ->with("owner", $owner)
-        ->with("goals", $goals);
+        ->with("goals", $goals)
+        ->with("recommended", $recommended);
     }
 
 }

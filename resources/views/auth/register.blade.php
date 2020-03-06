@@ -77,20 +77,22 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="user_role" class="col-md-4 col-form-label text-md-right">{{ __('User Role') }}</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
 
                             <div class="col-md-6">
-                                <select name="user_role" class="form-control">
-                                @foreach($roles as $role)
-                                <option value= "{{ $role->id }}" > {{ $role->name }} </option>
-                                @error('Role')
+
+                                <input id="role" type="hidden" 
+                                
+                                    class="form-control @error('role') is-invalid @enderror" name="role" value="{{ $role }}" 
+
+                                    required autocomplete="role" autofocus>
+
+                                @error('role')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                        
                                     </span>
                                 @enderror
-                                @endforeach	
-                                </select>
+
                             </div>
                         </div>
 

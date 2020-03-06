@@ -6,6 +6,7 @@
 
         @foreach($students as $student)
             
+            <img src="{{$student->profile->image_url}}">
             <p> User ID: {{ $student->id }} </p> 
             <p> First Name: {{ $student->first_name }} </p>  
             <p> Last Name: {{ $student->last_name }} </p> 

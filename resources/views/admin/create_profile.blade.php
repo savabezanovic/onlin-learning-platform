@@ -6,7 +6,7 @@
 
     <form action="{{action('AdminsController@storeProfile', $user_id) }}" method="POST">
         @csrf
-        
+
         <span for="age">Age:</span>
         <input type="number" name="age" ></input>
         

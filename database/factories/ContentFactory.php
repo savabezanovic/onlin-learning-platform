@@ -11,7 +11,7 @@ $factory->define(Content::class, function (Faker $faker) {
     $course = Course::all()->pluck('id')->toArray();
 
     return [
-        "desc" => $faker->realText($maxNbChars = 100, $indexSize = 2),
+        "description" => $faker->realText($maxNbChars = 100, $indexSize = 2),
         "course_id" => $faker->randomElement($course)
     ];
 });

@@ -6,15 +6,11 @@
 
         <h1>Edukacija za nove generacije!</h1>
 
-        <iframe width="1000" height="500" src="https://www.youtube.com/embed/G1IbRujko-A?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-        <br>
-
-        <img src= "{{asset('storage/homePageHero.png')}}" alt="Hero Image" width = "500" lenght = "500">
+        <img src= "{{asset('storage/homePageHero.png')}}" alt="Hero Image" width = "500" height = "300">
 
         <h2>Zelis da postavis svoj kurs?</h2>
 
-        <a href="/register">
+        <a href="/register/educator">
 
         <img src="https://via.placeholder.com/150">
 
@@ -26,7 +22,7 @@
 
         <h2>Zelis da pohadjas neki kurs?</h2> 
 
-         <a href="/register">
+         <a href="/register/student">
 
             <img src="https://via.placeholder.com/150">
 
@@ -51,7 +47,7 @@
 
     @foreach ($courses as $course)
 
-        <img src='https://via.placeholder.com/150'></img> 
+        <img src='{{$course->image_url}}' width=150 height=100></img> 
         <br>
         <p>{{$course->name}}</p>
 

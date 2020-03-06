@@ -28,6 +28,7 @@ Route::delete('/admin/delete/{user_id}', 'AdminsController@delete');
 Route::get("/admin/create", "AdminsController@createUser");
 Route::post("admin/save", "AdminsController@storeUser");
 
+Route::get("/register/{role}", "Auth\RegisterController@showRegistrationForm");
 Route::post("/register/user", "Auth\RegisterController@create");
 
 Auth::routes();

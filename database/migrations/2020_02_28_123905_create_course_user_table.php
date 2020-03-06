@@ -19,7 +19,6 @@ class CreateCourseUserTable extends Migration
             $table->bigInteger('course_id')->unsigned();
             // $table->foreign("user_id")->references("id")->on("user");
             $table->bigInteger('user_id')->unsigned();
-            $table->string("user_type");
             $table->timestamps();
         });
     }

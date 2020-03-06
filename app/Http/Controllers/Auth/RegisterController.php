@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            "user_role" => ["required", "integer"]
+            "role" => ["required", "integer"]
         ]);
     }
 
@@ -68,12 +68,12 @@ class RegisterController extends Controller
      * @return \App\User
      */
 
-     protected function showRegistrationForm()
+     protected function showRegistrationForm($role)
      {
+        
+        $role = $role;
 
-        $roles = Role::whereIn("name",["educator", "student"])->get();
-
-        return view("auth.register")->with("roles", $roles);
+        return view("auth.register")->with("role", $role);
 
      }
 
@@ -86,10 +86,10 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->input("password"));
         $user->save();
 
-        $user->roles()->sync([$request->input("user_role")]);
-        $user->save();
+        $role = Role::where("name", "=", $request->input("role"))->first();
+        $user->roles()->sync([$role->id]);
 
-        $profile = new Profile;
+        $profile = new Profile();
         $profile->user_id = $user->id;
         $profile->save();
       
