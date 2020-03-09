@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use DB;
 use App\Course;
 use App\User;
-use App\Role;
 use App\Category;
 
-class PagesController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -57,6 +55,17 @@ class PagesController extends Controller
 
     }
 
+    public function showEducator($id)
+    {
+    
+        $educator = User::find($id);
+
+        $courses = Course::where("user_id", "=", $id)->get();
+
+        return view("educator")->with("educator", $educator)->with("courses", $courses);
+
+    }
+
     public function showCourses()
     {
 
@@ -90,16 +99,18 @@ class PagesController extends Controller
 
     }
 
-    public function showCourse($course_name)
+    public function myCourses($id)
     {
 
-        $course = Course::where("name", "=", $course_name)->first();
+        $createdCourses = Course::where("user_id", "=", $id)->get();
+        
+        $allCourses = Course::whereHas('students', function (Builder $query) use ($id) {
+            $query->where('users.id', '=', $id);
+        })->get();
 
-        $goals = explode(",", $course->goals);
-
-        return view("course")->with("course", $course)
-        ->with("goals", $goals)
-        ->with("recommended", $recommended);
+        return view("my-courses")->with("createdCourses", $createdCourses)
+        ->with("allCourses", $allCourses);
+    
     }
 
 }

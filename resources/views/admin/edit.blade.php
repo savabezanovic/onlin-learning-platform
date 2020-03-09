@@ -1,10 +1,9 @@
 @extends("layouts.app")
 @section("content")
-    @include("components.navigation")
 
         <h1>Edit</h1>
 
-        <form action="{{action('AdminsController@update', $user->id)}}" method="POST">
+        <form action="{{action('AdminController@update', $user->id)}}" method="POST">
         @csrf 
         @method("PUT")
 
@@ -80,5 +79,4 @@
 
         </form>
 
-    @include("components.footer")
 @endsection

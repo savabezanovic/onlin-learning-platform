@@ -11,22 +11,31 @@
 |
 */
 
-Route::get("/", "PagesController@homePage");
-Route::get("/educators", "PagesController@showEducators");
-Route::get("/courses", "PagesController@showCourses");
-Route::get("/courses/category/{category_name}", "PagesController@showCategoryCourses");
-Route::get("/course/{course_name}", "PagesController@showCourse");
+Route::get("/", "PageController@homePage");
+Route::get("/educators", "PageController@showEducators");
+Route::get("/educators/{id}/profile", "PageController@showEducator");
+Route::get("/educators/{id}/courses", "PageController@myCourses");
 
-Route::get('/admin/dashboard', 'AdminsController@dashboard');
-Route::get('/admin/educators', 'AdminsController@showEducators');
-Route::get("/admin/students", "AdminsController@showStudents");
+Route::get("/courses", "PageController@showCourses");
+Route::get("/courses/category/{category_name}", "PageController@showCategoryCourses");
 
-Route::get('/admin/edit/{user_id}', 'AdminsController@edit');
-Route::put('/admin/update/{user_id}', 'AdminsController@update');
-Route::delete('/admin/delete/{user_id}', 'AdminsController@delete');
+Route::get("/course/{course_name}", "PageController@showCourse");
 
-Route::get("/admin/create", "AdminsController@createUser");
-Route::post("admin/save", "AdminsController@storeUser");
+Route::put("/course/{course_name}/edit", "EducatorController@edit");
+
+Route::get("/educators/{id}/profile/edit", "ProfileController@edit");
+Route::put('/educators/profile/update/{educator_id}', 'ProfileController@update');
+
+Route::get('/admin/dashboard', 'AdminController@dashboard');
+Route::get('/admin/educators', 'AdminController@showEducators');
+Route::get("/admin/students", "AdminController@showStudents");
+
+Route::get('/admin/edit/{user_id}', 'AdminController@edit');
+Route::put('/admin/update/{user_id}', 'AdminController@update');
+Route::delete('/admin/delete/{user_id}', 'AdminController@delete');
+
+Route::get("/admin/create", "AdminController@createUser");
+Route::post("admin/save", "AdminController@storeUser");
 
 Route::get("/register/{role}", "Auth\RegisterController@showRegistrationForm");
 Route::post("/register/user", "Auth\RegisterController@create");

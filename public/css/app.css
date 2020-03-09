@@ -10884,3 +10884,8 @@ a.text-dark:focus {
   }
 }
 
+.home {
+  border: 1px solid black;
+  background-color: dodgerblue;
+}
+

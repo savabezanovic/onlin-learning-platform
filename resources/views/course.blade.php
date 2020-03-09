@@ -2,8 +2,6 @@
 
 @section("content")
 
-    @include("components.navigation")
-
         <h1>{{$course->name}}</h1>
 
         <iframe width="500" height="200" src="{{$course->video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -42,13 +40,26 @@
 
         </ol>
 
-        @foreach($recommended as $course)
+        <h2>Recommended</h2>
 
-            <h2>{{$course->name}}</h2>
-            <img src="{{$course->image_url}}">
+        @if(!is_null($recommended))
 
-        @endforeach
+            @foreach($recommended as $course)
 
-    @include("components.footer")
+                <a href="#">
+                
+                    <h2>{{$course->name}}</h2>
+
+                    <img src="{{$course->image_url}}" width=150 height=100>
+
+                </a>
+
+            @endforeach
+
+        @else 
+
+            <p>Nema slicnih kurseva!</p>
+
+        @endif    
     
 @endsection

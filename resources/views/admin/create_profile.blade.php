@@ -1,10 +1,9 @@
 @extends("layouts.app")
 @section("content")
-    @include("partials.navigation")
 
     <h1>Create New Profile</h1>
 
-    <form action="{{action('AdminsController@storeProfile', $user_id) }}" method="POST">
+    <form action="{{action('AdminController@storeProfile', $user_id) }}" method="POST">
         @csrf
 
         <span for="age">Age:</span>
@@ -38,5 +37,5 @@
         <input type="submit" value="Create">
 
     </form>
-    @include("components.footer")
+
 @endsection

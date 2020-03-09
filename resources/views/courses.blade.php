@@ -2,8 +2,6 @@
 
 @section("content")
 
-    @include("components.navigation")
-
         <h1>Recentlly added</h1>
 
         @foreach($recentCourses as $course)
@@ -32,7 +30,5 @@
         </a>
 
         @endforeach
-
-    @include("components.footer")
     
 @endsection

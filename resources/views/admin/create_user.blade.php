@@ -1,10 +1,9 @@
 @extends("layouts.app")
 @section("content")
-    @include("components.navigation")
 
     <h1>Create New User</h1>
 
-    <form method="POST" action="{{action('AdminsController@storeUser')}}">
+    <form method="POST" action="{{action('AdminController@storeUser')}}">
         
             @csrf
 
@@ -41,5 +40,5 @@
 
             <button type="submit">Create</button>
     </form>
-    @include("components.footer")
+  
 @endsection

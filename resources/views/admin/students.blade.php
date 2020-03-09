@@ -1,6 +1,5 @@
 @extends("layouts.app")
 @section("content")
-    @include("components.navigation")
 
         <h1>All Students</h1>
 
@@ -14,7 +13,7 @@
         
             <a href='/admin/edit/{{$student->id}}'>Edit</a>
         
-            <form action="{{action('AdminsController@delete', $student->id)}}" method="POST">
+            <form action="{{action('AdminController@delete', $student->id)}}" method="POST">
             
             {{method_field("DELETE")}}
 
@@ -28,5 +27,4 @@
 
         @endforeach
 
-    @include("components.footer")
 @endsection
