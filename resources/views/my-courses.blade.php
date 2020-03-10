@@ -61,9 +61,9 @@
                         <h2>{{$course->name}}</h2>
 
                     </a>
-
-                    <a href="/course/unfollow/{{$course->id}}">Unfollow</a>
-
+                    @if($course->followedBy(auth()->user()->id))
+                        <a href="/course/unfollow/{{$course->id}}">Unfollow</a>
+                    @endif
                 @endforeach
                 
             @else

@@ -45,7 +45,7 @@
                                     <a href="/educators/{{auth()->user()->id}}/courses" class="dropdown-item">Moji kursevi</a>
                                 @else 
 
-                                <a href="#">Moji Kursevi</a>
+                                    <a class="dropdown-item" href="/educators/{{auth()->user()->id}}/courses">Moji Kursevi</a>
 
                                 @endif
 

@@ -19,9 +19,9 @@ class PageController extends Controller
     public function homePage()
     {
         
-        $courses = Course::with('students')
-            ->withCount('students')
-            ->latest('students_count')
+        $courses = Course::with('followers')
+            ->withCount('followers')
+            ->latest('followers_count')
             ->take(3)
             ->get();
 
@@ -117,13 +117,31 @@ class PageController extends Controller
 
         $createdCourses = Course::where("user_id", "=", $id)->get();
         
-        $allCourses = Course::whereHas('students', function (Builder $query) use ($id) {
+        $allCourses = Course::whereHas('followers', function (Builder $query) use ($id) {
             $query->where('users.id', '=', $id);
         })->get();
 
         return view("my-courses")->with("createdCourses", $createdCourses)
         ->with("allCourses", $allCourses);
     
+    }
+
+    public function follow($course_id) {
+
+        $course = Course::find($course_id);
+        $course->followers()->attach(auth()->user()->id);
+
+        return redirect("/courses");
+
+    }
+
+    public function unfollow($course_id) {
+
+        $course = Course::find($course_id);
+        $course->followers()->detach(auth()->user()->id);
+
+        return redirect("/courses");
+
     }
 
 }

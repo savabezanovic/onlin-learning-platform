@@ -22,7 +22,7 @@ class Course extends Model
 
     }
 
-    public function students() {
+    public function followers() {
 
         return $this->belongsToMany(User::class)->as('course_user')->withTimestamps();
 
@@ -31,6 +31,12 @@ class Course extends Model
     public function owner() {
 
         return $this->belongsTo(User::class, 'user_id');
+
+    }
+
+    public function followedBy($id) {
+
+        return $this->followers()->find($id);
 
     }
 

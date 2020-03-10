@@ -20,6 +20,8 @@ Route::get("/courses", "PageController@showCourses");
 Route::get("/courses/category/{category_name}", "PageController@showCategoryCourses");
 Route::get("/courses/course/{id}", "PageController@showCourse");
 
+Route::post("/course/follow/{id}", "PageController@follow");
+Route::delete("/course/unfollow/{id}", "PageController@unfollow");
 
 Route::get("/course/create", "EducatorController@create");
 Route::post("/course/save", "EducatorController@save");

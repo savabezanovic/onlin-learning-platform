@@ -83,7 +83,7 @@ class User extends Authenticatable
 
     }
 
-    public function boughtCourses() {
+    public function followingCourses() {
 
         return $this->belongsToMany(Course::class)->as('course_user')->withTimestamps();
 
