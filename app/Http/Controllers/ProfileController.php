@@ -14,33 +14,33 @@ class ProfileController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:educator');
+        
     }
 
     public function edit($id)
     {
 
-        $educator = User::find($id);
+        $user = User::find($id);
 
-        return view("educator.edit")->with("educator", $educator);
+        return view("educator.edit-profile")->with("user", $user);
 
     }
 
     public function update(Request $request, $id)
     {
 
-        $educator = User::find($id);
-        $educator->first_name = $request->input("first_name");
-        $educator->last_name = $request->input("last_name");
-        $educator->profile->age = $request->input("age");
-        $educator->profile->linkedin_url = $request->input("linkedin_url");
-        $educator->profile->education = $request->input("education");
-        $educator->profile->image_url = $request->input("image_url");
-        $educator->profile->title = $request->input("title");
-        $educator->profile->bio = $request->input("bio");
-        $educator->save();
-        $educator->profile->save();
+        $user = User::find($id);
+        $user->first_name = $request->input("first_name");
+        $user->last_name = $request->input("last_name");
+        $user->profile->linkedin_url = $request->input("linkedin_url");
+        $user->profile->education = $request->input("education");
+        $user->profile->image_url = $request->input("image_url");
+        $user->profile->title = $request->input("title");
+        $user->profile->bio = $request->input("bio");
+        $user->save();
+        $user->profile->save();
 
-        return redirect("/");               
+        return redirect("/");
 
     }
 

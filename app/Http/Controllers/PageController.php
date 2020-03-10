@@ -81,6 +81,19 @@ class PageController extends Controller
 
     }
 
+    public function showCourse($id)
+    {
+
+        $course = Course::find($id);
+    
+        $goals = explode(",", $course->goals);
+
+        $recommended = Course::where("user_id", "=", $course->user_id)->whereNotIn('id', [$id])->take(3)->get();
+
+        return view("course")->with("course", $course)->with("goals", $goals)->with("recommended", $recommended);
+
+    }
+
     public function showCategoryCourses($category_name)
     {
         

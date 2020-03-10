@@ -43,7 +43,10 @@
                             
                                     <a href="/educators/{{auth()->user()->id}}/profile" class="dropdown-item">Moj Profil</a>
                                     <a href="/educators/{{auth()->user()->id}}/courses" class="dropdown-item">Moji kursevi</a>
-                                    
+                                @else 
+
+                                <a href="#">Moji Kursevi</a>
+
                                 @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

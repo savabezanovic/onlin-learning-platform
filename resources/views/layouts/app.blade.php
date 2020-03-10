@@ -29,7 +29,7 @@
 
         @include('components.navigation')
 
-        <main class="py-4">
+        <main class="container">
 
             @yield('content')
 

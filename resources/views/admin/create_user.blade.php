@@ -32,7 +32,7 @@
 
             @foreach($userRoles as $userRole)
 
-            <option value= {{ $userRole->id }} > {{ $userRole->name }} </option>
+                <option @if ($role->id === $user->roles[0]->id) selected @endif value= "{{ $userRole->id }}" > {{ $userRole->name }} </option>
 
             @endforeach	
 

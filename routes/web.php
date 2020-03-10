@@ -18,13 +18,17 @@ Route::get("/educators/{id}/courses", "PageController@myCourses");
 
 Route::get("/courses", "PageController@showCourses");
 Route::get("/courses/category/{category_name}", "PageController@showCategoryCourses");
+Route::get("/courses/course/{id}", "PageController@showCourse");
 
-Route::get("/course/{course_name}", "PageController@showCourse");
 
-Route::put("/course/{course_name}/edit", "EducatorController@edit");
+Route::get("/course/create", "EducatorController@create");
+Route::post("/course/save", "EducatorController@save");
+Route::get("/course/edit/{id}", "EducatorController@edit");
+Route::put("/course/update/{id}", "EducatorController@update");
+Route::delete("/course/delete/{id}", "EducatorController@delete");
 
-Route::get("/educators/{id}/profile/edit", "ProfileController@edit");
-Route::put('/educators/profile/update/{educator_id}', 'ProfileController@update');
+Route::get("/profile/edit/{id}", "ProfileController@edit");
+Route::put('/profile/update/{educator_id}', 'ProfileController@update');
 
 Route::get('/admin/dashboard', 'AdminController@dashboard');
 Route::get('/admin/educators', 'AdminController@showEducators');

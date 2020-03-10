@@ -20,9 +20,9 @@
 
             @foreach($course->contents as $content)
 
-            <li>
-                {{$content->desc}}
-            </li>
+                <li>
+                    {{$content->desc}}
+                </li>
 
             @endforeach
 

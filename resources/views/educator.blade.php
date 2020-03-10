@@ -12,7 +12,7 @@
 
        @if ($educator->id === auth()->user()->id)
 
-            <a class="edit-btn edit-btn-educator btns-educator-profil" href="/educators/{{$educator->id}}/profile/edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Izmeni">
+            <a class="edit-btn edit-btn-educator btns-educator-profil" href="/profile/edit/{{$educator->id}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Izmeni">
                     
                 <i class="material-icons">edit</i>
 
