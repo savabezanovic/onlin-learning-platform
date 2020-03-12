@@ -18,7 +18,7 @@ class PageController extends Controller
      */
     public function homePage()
     {
-        
+
         $courses = Course::with('followers')
             ->withCount('followers')
             ->latest('followers_count')
@@ -30,7 +30,7 @@ class PageController extends Controller
 
     public function showEducators(Request $request)
     {
-    
+
         $name = $request->get('name');
 
         $recentEducators = User::whereHas('roles', function (Builder $query)  {
@@ -55,12 +55,12 @@ class PageController extends Controller
 
     }
 
-    public function showEducator($id)
+    public function showEducator($slug)
     {
-    
-        $educator = User::find($id);
 
-        $courses = Course::where("user_id", "=", $id)->get();
+        $educator = User::where("slug", "=", $slug);
+
+        $courses = Course::where("user_id", "=", $educator->id)->get();
 
         return view("educator")->with("educator", $educator)->with("courses", $courses);
 
@@ -75,17 +75,17 @@ class PageController extends Controller
 
         $categories = Category::all();
 
-        $courses = Course::all();
+        $courses = Course::paginate(6);
 
         return view("courses")->with("recentCourses", $recentCourses)->with("categories", $categories)->with("courses", $courses);
 
     }
 
-    public function showCourse($id)
+    public function Course($id)
     {
 
         $course = Course::find($id);
-    
+
         $goals = explode(",", $course->goals);
 
         $recommended = Course::where("user_id", "=", $course->user_id)->whereNotIn('id', [$id])->take(3)->get();
@@ -96,9 +96,9 @@ class PageController extends Controller
 
     public function showCategoryCourses($category_name)
     {
-        
+
         $category = Category::where("name", "=", $category_name)->first();
-    
+
         $recentCourses = Course::where("category_id", "=", $category->id)
         ->latest("created_at")
         ->take(3)
@@ -112,35 +112,17 @@ class PageController extends Controller
 
     }
 
-    public function myCourses($id)
+    public function myCourses()
     {
 
-        $createdCourses = Course::where("user_id", "=", $id)->get();
-        
-        $allCourses = Course::whereHas('followers', function (Builder $query) use ($id) {
-            $query->where('users.id', '=', $id);
+        $createdCourses = Course::where("user_id", "=", auth()->user()->id)->get();
+
+        $allCourses = Course::whereHas('followers', function (Builder $query) {
+            $query->where('users.id', '=', auth()->user()->id);
         })->get();
 
         return view("my-courses")->with("createdCourses", $createdCourses)
         ->with("allCourses", $allCourses);
-    
-    }
-
-    public function follow($course_id) {
-
-        $course = Course::find($course_id);
-        $course->followers()->attach(auth()->user()->id);
-
-        return redirect("/courses");
-
-    }
-
-    public function unfollow($course_id) {
-
-        $course = Course::find($course_id);
-        $course->followers()->detach(auth()->user()->id);
-
-        return redirect("/courses");
 
     }
 

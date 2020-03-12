@@ -5,16 +5,24 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
+    use Sluggable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => ["first_name", "last_name"]
+            ]
+        ];
+    }
+
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password'
 
@@ -62,7 +70,7 @@ class User extends Authenticatable
     }
         return false;
     }
-    
+
     public function hasRole($role)
     {
         if ($this->roles()->where("name", $role)->first()) {

@@ -6,8 +6,8 @@
         <h2>Najnoviji Clanovi</h2>
 
         @foreach($recentEducators as $recentEducator)
-            
-            <a href="/educators/{{$recentEducator->id}}/profile">
+
+            <a href="/profile/{{$recentEducator->slug}}">
                 <img src="{{$recentEducator->profile->image_url}}" width=150 height=100>
                 <p>{{$recentEducator->first_name}} {{$recentEducator->last_name}}</p>
             </a>
@@ -22,12 +22,12 @@
 
         </form>
         <br>
-        
+
         @foreach($allEducators as $educator)
-            <a href="/educators/{{$educator->id}}/profile">
+            <a href="/profile/{{$educator->slug}}">
                 <img src="{{$educator->profile->image_url}}" width=150 height=100>
                 <p>{{$educator->first_name}} {{$educator->last_name}}</p>
             </a>
         @endforeach
-        
+
 @endsection

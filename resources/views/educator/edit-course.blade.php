@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section("content")
-
+@if(auth()->user()->id === $course->user_id)
         <h1>Edit</h1>
 
         <form action="{{action('EducatorController@update', $course->id)}}" method="POST">
@@ -52,5 +52,6 @@
             <button class="form-control" type="submit">Edit</button>
 
         </form>
-
+    @else <a href="/">Nije tvoj kurs.</a>
+    @endif
 @endsection

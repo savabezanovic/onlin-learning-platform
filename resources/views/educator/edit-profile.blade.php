@@ -1,3 +1,4 @@
+@if(auth()->user()->id === $user->id)
 @extends("layouts.app")
 @section("content")
 
@@ -47,3 +48,5 @@
         </form>
 
 @endsection
+@else <?php redirect("/") ?>
+@endif

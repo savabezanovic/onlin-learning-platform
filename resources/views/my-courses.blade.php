@@ -23,23 +23,27 @@
 
                     </a>
 
-                    @if(auth()->user()->id === $course->user_id)
+                    @auth
 
-                    <a href="/course/edit/{{$course->id}}">Edit</a>
+                        @if(auth()->user()->id === $course->user_id)
+
+                            <a href="/course/edit/{{$course->id}}">Edit</a>
+                            
+                            <form action="{{action('EducatorController@delete', $course->id)}}" method="POST">
                     
-                    <form action="{{action('EducatorController@delete', $course->id)}}" method="POST">
-            
-                    {{method_field("DELETE")}}
+                                @method("DELETE")
 
-                    {{csrf_field()}}
+                                {{csrf_field()}}
 
-                        <input type="submit" value="Delete">
+                                <input type="submit" value="Delete">
 
-                    </from>
+                            </from>
 
-                    <br>
+                        <br>
 
-                    @endif
+                        @endif
+
+                    @endauth
 
                 @endforeach
             @else
@@ -54,16 +58,33 @@
 
                 @foreach($allCourses as $course)
 
-                    <a href="/course/course/{{$course->id}}" width=150 height=100>
+                    <a href="/courses/course/{{$course->id}}">
 
-                        <img src="{{$course->image_url}}">
+                        <img src="{{$course->image_url}}" width=150 height=100>
 
                         <h2>{{$course->name}}</h2>
 
                     </a>
-                    @if($course->followedBy(auth()->user()->id))
-                        <a href="/course/unfollow/{{$course->id}}">Unfollow</a>
-                    @endif
+
+                    @auth
+
+                        @if(auth()->user()->hasRole("student") && $course->followedBy(auth()->user()->id))
+
+                            <form action="{{action('StudentController@unfollow', $course->id)}}" method="POST">
+
+                                @method("DELETE")
+
+                                @csrf
+
+                                <!-- <input name="course_id_unfollow" type="hidden" value="{{$course->id}}"> -->
+                                <input type="submit" value="Unfollow">
+
+                            </form>
+
+                        @endif
+
+                    @endauth
+
                 @endforeach
                 
             @else
