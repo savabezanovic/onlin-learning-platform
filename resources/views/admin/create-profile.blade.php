@@ -22,7 +22,7 @@
         <br>
 
         <span for="image_url">Image:</span>
-        <input type="url" name="image_url" ></input>
+        <input type="file" name="image_url" ></input>
 
         <br>
 

@@ -3,7 +3,7 @@
 
     <h1>Create New Course</h1>
 
-    <form method="POST" action="{{action('EducatorController@save')}}">
+    <form method="POST" action="{{action('EducatorController@save')}}" enctype="multipart/form-data">
         
             @csrf
 
@@ -44,7 +44,7 @@
             <br>
 
             <span for="image_url">Image URL</span>
-            <input type="text" name="image_url">
+            <input type="file" name="image_url">
 
             <button type="submit">Create</button>
             

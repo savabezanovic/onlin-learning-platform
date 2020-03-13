@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Course;
+use Illuminate\Support\Facades\Storage;
 
 class EducatorController extends Controller
 {
@@ -62,7 +63,14 @@ class EducatorController extends Controller
         $course->category_id = $request->input("category");
         $course->video_url = $request->input("video_url");
         $course->user_id = $request->input("user_id");
-        $course->image_url = $request->input("image_url");
+        $course->save();
+
+        $image = $request->file("image_url");
+
+        Storage::disk('public')->putFileAs("course-images", $image, $course->id . ".". $image->getClientOriginalExtension());
+
+        $course->image_url = asset("storage/course-images/" . $course->id . "." . $image->getClientOriginalExtension());
+
         $course->save();
 
         return redirect("/");
@@ -73,7 +81,7 @@ class EducatorController extends Controller
     {
 
         $course = Course::where("slug", "=", $slug);
-        $course->delete();
+        $course->forceDelete();
 
         return redirect("/");
 

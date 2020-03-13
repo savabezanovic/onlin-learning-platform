@@ -35,9 +35,11 @@
 
         </main>
 
+        @include("components.footer")
+        
     </div>
 
-    @include("components.footer")
+    
     
 </body>
 </html>
