@@ -1,8 +1,6 @@
 @extends("layouts.app")
 
 @section("content")
-
-       <img src="https://via.placeholder.com/150" width=150 height=100>
       
        <img src="{{$educator->image_url}}" width=150 height=100>
 
@@ -12,7 +10,7 @@
 
        @if ($educator->id === auth()->user()->id)
 
-            <a class="edit-btn edit-btn-educator btns-educator-profil" href="/profile/edit/{{$educator->id}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Izmeni">
+            <a class="edit-btn edit-btn-educator btns-educator-profil" href="/profile/edit/{{$educator->slug}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Izmeni">
                     
                 <i class="material-icons">edit</i>
 

@@ -16,7 +16,7 @@
 
             <div class="col-md-4">
 
-                <a href="/courses/course/{{$course->id}}">
+                <a href="/course/{{$course->slug}}">
 
                     <img src="{{$course->image_url}}" width=150 height=100>
 
@@ -28,7 +28,7 @@
 
                     @if(auth()->user()->hasRole("student") && $course->followedBy(auth()->user()->id))
 
-                        <form action="{{action('StudentController@unfollow', $course->id)}}" method="POST">
+                        <form action="{{action('StudentController@unfollow', $course->slug)}}" method="POST">
 
                         @method("DELETE")
 
@@ -42,7 +42,7 @@
 
                     @elseif(auth()->user()->hasRole("student") && !$course->followedBy(auth()->user()->id))
 
-                        <form action="{{action('StudentController@follow', $course->id)}}" method="POST">
+                        <form action="{{action('StudentController@follow', $course->slug)}}" method="POST">
 
                         @csrf
 
@@ -80,7 +80,7 @@
                 @foreach($courses as $course)
 
                     <div class="col-md-4">
-                        <a href="/courses/course/{{$course->id}}">
+                        <a href="/course/{{$course->slug}}">
 
                             <img src="{{$course->image_url}}" width=150 height=100>
 
@@ -93,7 +93,7 @@
 
                             @if(auth()->user()->hasRole("student") && $course->followedBy(auth()->user()->id))
 
-                                <form action="{{action('StudentController@unfollow', $course->id)}}" method="POST">
+                                <form action="{{action('StudentController@unfollow', $course->slug)}}" method="POST">
 
                                 @method("DELETE")
 
@@ -106,7 +106,7 @@
 
                             @elseif(auth()->user()->hasRole("student") && !$course->followedBy(auth()->user()->id))
 
-                                <form action="{{action('StudentController@follow', $course->id)}}" method="POST">
+                                <form action="{{action('StudentController@follow', $course->slug)}}" method="POST">
 
                                 @csrf
 

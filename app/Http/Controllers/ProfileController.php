@@ -17,19 +17,19 @@ class ProfileController extends Controller
         
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
 
-        $user = User::find($id);
+        $user = User::where("slug", "=", $slug)->first();
 
         return view("educator.edit-profile")->with("user", $user);
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
 
-        $user = User::find($id);
+        $user = User::where("slug", "=", $slug)->first();
         $user->first_name = $request->input("first_name");
         $user->last_name = $request->input("last_name");
         $user->profile->linkedin_url = $request->input("linkedin_url");

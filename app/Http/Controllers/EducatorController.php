@@ -15,10 +15,10 @@ class EducatorController extends Controller
         $this->middleware('role:educator');
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
         
-        $course = Course::find($id);
+        $course = Course::where("slug", "=", $slug)->first();
 
         $categories = Category::all();
 
@@ -26,10 +26,10 @@ class EducatorController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
 
-        $course = Course::find($id);
+        $course = Course::where("slug", "=", $slug)->first();
         $course->name = $request->input("name");
         $course->description = $request->input("description");
         $course->goals = $request->input("goals");
@@ -69,10 +69,10 @@ class EducatorController extends Controller
 
     }
 
-    public function delete($id)
+    public function delete($slug)
     {
 
-        $course = Course::find($id);
+        $course = Course::where("slug", "=", $slug);
         $course->delete();
 
         return redirect("/");

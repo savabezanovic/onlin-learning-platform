@@ -41,7 +41,7 @@
 
                                 @if(auth()->user()->hasRole("educator"))
 
-                                    <a href="/educators/{{auth()->user()->id}}/profile" class="dropdown-item">Moj Profil</a>
+                                    <a href="/profile/{{auth()->user()->slug}}" class="dropdown-item">Moj Profil</a>
                                     <a href="/mycourses" class="dropdown-item">Moji kursevi</a>
                                 @elseif(auth()->user()->hasRole("student"))
 

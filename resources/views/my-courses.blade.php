@@ -15,7 +15,7 @@
 
                 @foreach($createdCourses as $course)
 
-                    <a href="/courses/course/{{$course->id}}">
+                    <a href="/course/{{$course->slug}}">
 
                         <img src="{{$course->image_url}}" width=150 height=100>
 
@@ -27,9 +27,9 @@
 
                         @if(auth()->user()->id === $course->user_id)
 
-                            <a href="/course/edit/{{$course->id}}">Edit</a>
+                            <a href="/course/edit/{{$course->slug}}">Edit</a>
                             
-                            <form action="{{action('EducatorController@delete', $course->id)}}" method="POST">
+                            <form action="{{action('EducatorController@delete', $course->slug)}}" method="POST">
                     
                                 @method("DELETE")
 
@@ -58,7 +58,7 @@
 
                 @foreach($allCourses as $course)
 
-                    <a href="/courses/course/{{$course->id}}">
+                    <a href="/course/{{$course->slug}}">
 
                         <img src="{{$course->image_url}}" width=150 height=100>
 
@@ -70,7 +70,7 @@
 
                         @if(auth()->user()->hasRole("student") && $course->followedBy(auth()->user()->id))
 
-                            <form action="{{action('StudentController@unfollow', $course->id)}}" method="POST">
+                            <form action="{{action('StudentController@unfollow', $course->slug)}}" method="POST">
 
                                 @method("DELETE")
 

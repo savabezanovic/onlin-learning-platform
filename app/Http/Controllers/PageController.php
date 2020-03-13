@@ -58,7 +58,7 @@ class PageController extends Controller
     public function showEducator($slug)
     {
 
-        $educator = User::where("slug", "=", $slug);
+        $educator = User::where("slug", "=", $slug)->first();
 
         $courses = Course::where("user_id", "=", $educator->id)->get();
 
@@ -81,14 +81,14 @@ class PageController extends Controller
 
     }
 
-    public function Course($id)
+    public function showCourse($slug)
     {
 
-        $course = Course::find($id);
+        $course = Course::where("slug", "=", $slug)->first();
 
         $goals = explode(",", $course->goals);
 
-        $recommended = Course::where("user_id", "=", $course->user_id)->whereNotIn('id', [$id])->take(3)->get();
+        $recommended = Course::where("user_id", "=", $course->user_id)->whereNotIn('id', [$course->user_id])->take(3)->get();
 
         return view("course")->with("course", $course)->with("goals", $goals)->with("recommended", $recommended);
 
@@ -106,7 +106,7 @@ class PageController extends Controller
 
         $categories = Category::all();
 
-        $courses = Course::where("category_id", "=", $category->id)->get();
+        $courses = Course::where("category_id", "=", $category->id)->paginate(6);
 
         return view("courses")->with("recentCourses", $recentCourses)->with("categories", $categories)->with("courses", $courses);
 

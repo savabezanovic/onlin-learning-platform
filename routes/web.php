@@ -40,19 +40,19 @@ Route::middleware(['role:admin'])->group(function () {
 });
 
 Route::middleware(['role:student'])->group(function () {
-    Route::post("/course/follow/{id}", "StudentController@follow");
-    Route::delete("/course/unfollow/{id}", "StudentController@unfollow");
+    Route::post("/course/follow/{slug}", "StudentController@follow");
+    Route::delete("/course/unfollow/{slug}", "StudentController@unfollow");
 });
 
 Route::middleware(['role:educator'])->group(function () {
     Route::get("/course/create", "EducatorController@create");
     Route::post("/course/save", "EducatorController@save");
-    Route::get("/course/edit/{id}", "EducatorController@edit");
-    Route::put("/course/update/{id}", "EducatorController@update");
-    Route::delete("/course/delete/{id}", "EducatorController@delete");
+    Route::get("/course/edit/{slug}", "EducatorController@edit");
+    Route::put("/course/update/{slug}", "EducatorController@update");
+    Route::delete("/course/delete/{slug}", "EducatorController@delete");
 
-    Route::get("/profile/edit/{id}", "ProfileController@edit");
-    Route::put('/profile/update/{educator_id}', 'ProfileController@update');
+    Route::get("/profile/edit/{slug}", "ProfileController@edit");
+    Route::put('/profile/update/{slug}', 'ProfileController@update');
 });
 
 Route::get("/", "PageController@homePage");
@@ -62,7 +62,7 @@ Route::get("/mycourses", "PageController@myCourses");
 
 Route::get("/courses", "PageController@showCourses");
 Route::get("/courses/category/{category_name}", "PageController@showCategoryCourses");
-Route::get("/courses/course/{id}", "PageController@showCourse");
+Route::get("/course/{slug}", "PageController@showCourse");
 
 Route::get("/register/{role}", "Auth\RegisterController@showRegistrationForm");
 Route::post("/register/user", "Auth\RegisterController@create");

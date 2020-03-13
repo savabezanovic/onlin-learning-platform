@@ -16,9 +16,9 @@ class StudentController extends Controller
         
     }
 
-    public function follow($id) {
+    public function follow($slug) {
 
-        $course = Course::find($id);
+        $course = Course::where("slug", "=", $slug);
 
         $course->followers()->attach(auth()->user()->id);
 
@@ -26,9 +26,9 @@ class StudentController extends Controller
 
     }
 
-    public function unfollow($id) {
+    public function unfollow($slug) {
 
-        $course = Course::find($id);
+        $course = Course::where("slug", "=", $slug);
 
         $course->followers()->detach(auth()->user()->id);
 

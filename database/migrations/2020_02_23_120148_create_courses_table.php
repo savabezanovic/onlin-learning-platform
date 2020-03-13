@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->bigInteger('category_id')->unsigned();
+            //$table->string("image_url");
             // $table->foreign('cat_id')->references('id')->on("category");
             $table->string('goals');
             $table->string('video_url');

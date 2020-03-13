@@ -1,10 +1,9 @@
-@if(auth()->user()->id === $user->id)
 @extends("layouts.app")
 @section("content")
 
         <h1>Edit</h1>
 
-        <form action="{{action('EducatorController@update', $user->id)}}" method="POST">
+        <form action="{{action('ProfileController@update', $user->slug)}}" method="POST">
         @csrf 
         @method("PUT")
 
@@ -48,5 +47,3 @@
         </form>
 
 @endsection
-@else <?php redirect("/") ?>
-@endif
