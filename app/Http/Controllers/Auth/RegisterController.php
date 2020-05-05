@@ -56,8 +56,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            "role" => ["required", "integer"]
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
     }
 
@@ -79,6 +78,14 @@ class RegisterController extends Controller
 
     protected function create(Request $request)
     {
+
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => 'string|required|min:8|confirmed',
+        ]);
+
         $user = new User;
         $user->first_name = $request->input("first_name");
         $user->last_name = $request->input("last_name");

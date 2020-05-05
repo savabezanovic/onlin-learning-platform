@@ -14,6 +14,8 @@
 
         @foreach($recentCourses as $course)
 
+            @if($course->active)
+
             <div class="col-md-4">
 
                 <a href="/course/{{$course->slug}}">
@@ -23,6 +25,8 @@
                     <p>{{$course->name}}</p>
 
                 </a>
+
+           
 
                 @auth
 
@@ -56,7 +60,7 @@
                 @endauth
 
             </div>
-
+            @endif
         @endforeach
 
     </div>
@@ -78,7 +82,7 @@
         <div class='col-md-9'>
             <div class="row">
                 @foreach($courses as $course)
-
+                @if($course->active)
                     <div class="col-md-4">
                         <a href="/course/{{$course->slug}}">
 
@@ -119,7 +123,7 @@
                         @endauth
 
                     </div>
-
+                @endif
                 @endforeach
 
             </div>

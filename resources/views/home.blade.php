@@ -70,11 +70,12 @@
     <h2>Popularni kursevi</h2>
 
     @foreach ($courses as $course)
-
+        @if($course->active)
         <img src='{{$course->image_url}}' width=150 height=100></img>
         <br>
         <p>{{$course->name}}</p>
-
+        <p>{{$course->description}}</p>
+        @endif
     @endforeach
 
 @endsection

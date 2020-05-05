@@ -15,6 +15,12 @@
 
                 @foreach($createdCourses as $course)
 
+                @if(!$course->active)
+
+                <p>Vas kurs je deaktiviran!</p>
+
+                @endif
+
                     <a href="/course/{{$course->slug}}">
 
                         <img src="{{$course->image_url}}" width=150 height=100>
@@ -58,6 +64,12 @@
 
                 @foreach($allCourses as $course)
 
+                    @if(!$course->active)
+
+                    <p>Vas kurs je deaktiviran!</p>
+
+                    @endif
+                    
                     <a href="/course/{{$course->slug}}">
 
                         <img src="{{$course->image_url}}" width=150 height=100>
